@@ -47,6 +47,40 @@ const logNumber1: (i: number) => void = (i:number) => {
 
 // When to use annotations
 // 1) Functions that return the 'any' type
+// JSON.parse returns type any due to not knowing but what will come
+// back in a response
 const json = '{"x": 10, "y": 20}';
 const coordinates = JSON.parse(json);
 console.log(coordinates); // {x:10, y: 20};
+
+// Let's  fix up the above example with an annotation
+const json = '{"x": 10, "y": 20}';
+const coordinates: {x: number; y:  number}= JSON.parse(json);
+console.log(coordinates); // {x:10, y: 20};
+// const.blahblahblah will throw an error due to tthe x & y prop annotations
+
+// When to use annotations
+// 2) When we declare a var but initialize it later
+let words = ['red', 'blue', 'green']
+let foundWord: boolean;
+
+
+for (let i = 0; i < words.length; i++) {
+  if (words[i] === 'green') {
+    foundWord = true;
+  }
+}
+
+// When to use annotations
+// 3) Variable whose type cannot be inferred correctly
+// The pipe symbol can give an or conditional to the var if needed
+// This is not same as using || in loops
+let numbers = [-10, 1, 11]
+let numberAboveZero: boolean | number = false;
+
+for (let i = 0; i < numbers.length; i++) {
+  if (numbers[i] > 0) {
+    numberAboveZero = numbers[i];
+  };
+};
+
